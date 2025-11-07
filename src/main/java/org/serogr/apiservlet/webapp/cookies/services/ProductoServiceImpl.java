@@ -15,6 +15,11 @@ public class ProductoServiceImpl implements ProductoServiceI{
     }
 
     @Override
+    public Optional<Producto> findById(Long id) {
+        return listar().stream().filter(producto -> producto.getId().equals(id)).findAny();
+    }
+
+    @Override
     public Optional<Producto> buscarProducto(String nombre) {
         ProductoServiceI service = new ProductoServiceImpl();
         Optional<Producto> encontrado = service.listar().stream().filter(producto -> {
