@@ -27,6 +27,12 @@ public class ProductoServlet extends HttpServlet {
         LoginService auth = new LoginServiceSessionImpl();
         Optional<String> usernameOptional = auth.getUsername(req);
 
+        //Obtener mensaje del request de la sesión
+        //Se crea y se destruye con cada rquest (petición)
+        String mensajeRequest = (String) req.getAttribute("mensaje");
+        //Obtenemos el mensaje global de la app
+        //Se crea una vez para toda la aplicación (Singleton) y se destruye al finalizar la aplicación
+        String mensajeGlobal = (String) getServletContext().getAttribute("mensaje");
         resp.setContentType("text/html;charset=UTF8");
 
         try (PrintWriter out = resp.getWriter()) {
@@ -65,6 +71,8 @@ public class ProductoServlet extends HttpServlet {
                 out.println("</tr>");
             });
             out.println("       </table>");
+            out.println("       <p>" + mensajeGlobal + "</p>");
+            out.println("       <p>" + mensajeRequest + "</p>");
             out.println("   </body>");
             out.println("</html>");
         }
