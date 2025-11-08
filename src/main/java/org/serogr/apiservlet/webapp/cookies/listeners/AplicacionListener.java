@@ -2,8 +2,10 @@ package org.serogr.apiservlet.webapp.cookies.listeners;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebListener;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpSessionEvent;
 import jakarta.servlet.http.HttpSessionListener;
+import org.serogr.apiservlet.webapp.cookies.models.Carro;
 
 /*
 * Esta clase no hereda de ninguna otra; solo se tiene que implementar interfaces e
@@ -32,6 +34,7 @@ public class AplicacionListener implements ServletContextListener, ServletReques
         sce.getServletContext().log("Inicializando la aplicación!");
         //Se inicializa el atributo de tipo ServletContextListener
         servletContext = sce.getServletContext();
+        servletContext.setAttribute("mensaje", "algún valor global de la aplicación!");
     }
 
     @Override
@@ -42,6 +45,7 @@ public class AplicacionListener implements ServletContextListener, ServletReques
     @Override
     public void requestInitialized(ServletRequestEvent sre) {
         servletContext.log("Inicializando el Request!");
+        sre.getServletRequest().setAttribute("mensaje", "Guardando algún valor para el request!");
     }
 
     @Override
@@ -52,6 +56,10 @@ public class AplicacionListener implements ServletContextListener, ServletReques
     @Override
     public void sessionCreated(HttpSessionEvent se) {
         servletContext.log("Inicializando la sesión Http!");
+        Carro carro = new Carro();
+        //Obtenemos la sesión
+        HttpSession session = se.getSession();
+        session.setAttribute("carro", carro);
     }
 
     @Override
