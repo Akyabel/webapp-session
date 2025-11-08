@@ -25,13 +25,7 @@ public class AgregarCarroServlet extends HttpServlet {
         if (producto.isPresent()){
             ItemCarro item = new ItemCarro(1, producto.get());
             HttpSession session = req.getSession();
-            Carro carro;
-            if (session.getAttribute("carro") == null){
-                carro = new Carro();
-                session.setAttribute("carro", carro);
-            } else {
-                carro = (Carro) session.getAttribute("carro");
-            }
+            Carro carro = (Carro) session.getAttribute("carro");
             carro.agregarItem(item);
         }
         resp.sendRedirect(req.getContextPath() + "/ver-carro");
