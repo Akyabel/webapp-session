@@ -4,11 +4,14 @@ org\serogr\apiservlet\webapp\cookies\controllers\AgregarCarroServlet.class
 org\serogr\apiservlet\webapp\cookies\models\Producto.class
 org\serogr\apiservlet\webapp\cookies\controllers\ProductoServlet.class
 org\serogr\apiservlet\webapp\cookies\controllers\ActualizarCarroServlet.class
+org\serogr\apiservlet\webapp\cookies\listeners\AplicacionListener.class
 org\serogr\apiservlet\webapp\cookies\services\LoginServiceSessionImpl.class
 org\serogr\apiservlet\webapp\cookies\controllers\LogoutServlet.class
 org\serogr\apiservlet\webapp\cookies\services\LoginServiceCookieImpl.class
+org\serogr\apiservlet\webapp\cookies\controllers\MostrarNombreServlet.class
 org\serogr\apiservlet\webapp\cookies\models\ItemCarro.class
 org\serogr\apiservlet\webapp\cookies\services\ProductoServiceImpl.class
 org\serogr\apiservlet\webapp\cookies\services\LoginService.class
 org\serogr\apiservlet\webapp\cookies\controllers\VerCarroServlet.class
 org\serogr\apiservlet\webapp\cookies\controllers\LoginServlet.class
+org\serogr\apiservlet\webapp\cookies\listeners\NombreListener.class
