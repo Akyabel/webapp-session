@@ -14,7 +14,7 @@ Carro carro = (Carro) session.getAttribute("carro");
     <%if (carro == null || carro.getItems().isEmpty()){%>
     <p> No tienes productos agregados al carro de compra! </p>
     <% } else { %>
-<form name="formcarro" action="<%=request.getContextPath()%>/actualizar-carro" method="POST">
+<form name="formcarro" action="<%=request.getContextPath()%>/carro/actualizar" method="POST">
     <table>
         <tr>
             <th>ID</th>
