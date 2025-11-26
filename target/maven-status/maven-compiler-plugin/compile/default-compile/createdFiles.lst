@@ -4,6 +4,7 @@ org\serogr\apiservlet\webapp\cookies\controllers\AgregarCarroServlet.class
 org\serogr\apiservlet\webapp\cookies\models\Producto.class
 org\serogr\apiservlet\webapp\cookies\controllers\ProductoServlet.class
 org\serogr\apiservlet\webapp\cookies\controllers\ActualizarCarroServlet.class
+org\serogr\apiservlet\webapp\cookies\filters\LoginFiltro.class
 org\serogr\apiservlet\webapp\cookies\listeners\AplicacionListener.class
 org\serogr\apiservlet\webapp\cookies\services\LoginServiceSessionImpl.class
 org\serogr\apiservlet\webapp\cookies\controllers\LogoutServlet.class
