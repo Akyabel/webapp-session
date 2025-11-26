@@ -12,7 +12,7 @@ import java.util.Optional;
 
 // Acá se es especifíca sobre que Servlet se va a utilizar este Filter
 //Como van a ser varias rutas se usan las llaves
-@WebFilter({"/ver-carro", "/agregar-carro", "/actualizar-carro"})
+@WebFilter({"/carro/*"})
 public class LoginFiltro implements Filter {
     //Todas estas validaciones se ejecutan ANTES de llegar a ejecutar los SERVLETS en cuestión.
     @Override
