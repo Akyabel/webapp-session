@@ -2,10 +2,7 @@ package org.serogr.apiservlet.webapp.cookies.repositories;
 
 import org.serogr.apiservlet.webapp.cookies.models.Producto;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,18 +31,21 @@ public class ProductoRepositoryJDBCImpl implements Repository<Producto> {
         return productos;
     }
 
-    private Producto getProducto(ResultSet rs) throws SQLException {
-        Producto producto = new Producto();
-        producto.setId(rs.getLong("id"));
-        producto.setNombre(rs.getString("nombre"));
-        producto.setPrecio(rs.getInt("precio"));
-        producto.setTipo(rs.getString("categoria"));
-        return producto;
-    }
-
     @Override
     public Producto porID(Long id) throws SQLException {
-        return null;
+        //Crear la instancia de la clase Producto
+        Producto producto = null;
+        try(PreparedStatement stmt = conn.prepareStatement("SELECT p.*, c.nombre as categoria FROM productos AS p " +
+                "INNER JOIN categorias AS c ON (p.categoria_id = c.id) WHERE p.id = ?")){
+            stmt.setLong(1, id);
+
+            try(ResultSet rs = stmt.executeQuery()){
+                if (rs.next()){
+                    producto = getProducto(rs);
+                }
+            }
+        }
+        return producto;
     }
 
     @Override
@@ -56,5 +56,14 @@ public class ProductoRepositoryJDBCImpl implements Repository<Producto> {
     @Override
     public void eliminar(Long id) throws SQLException {
 
+    }
+
+    private Producto getProducto(ResultSet rs) throws SQLException {
+        Producto producto = new Producto();
+        producto.setId(rs.getLong("id"));
+        producto.setNombre(rs.getString("nombre"));
+        producto.setPrecio(rs.getInt("precio"));
+        producto.setTipo(rs.getString("categoria"));
+        return producto;
     }
 }
