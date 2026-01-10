@@ -3,6 +3,7 @@ package org.serogr.apiservlet.webapp.cookies.filters;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletResponse;
+import org.serogr.apiservlet.webapp.cookies.services.ServiceJDBCException;
 import org.serogr.apiservlet.webapp.cookies.util.ConexionBD;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class ConexionFilter implements Filter {
                 servletRequest.setAttribute("conn", conn);
                 filterChain.doFilter(servletRequest, servletResponse);
                 conn.commit();
-            } catch (SQLException e){
+            } catch (SQLException |ServiceJDBCException e){
                 conn.rollback();
                 ((HttpServletResponse)servletResponse).sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
                 e.printStackTrace();
