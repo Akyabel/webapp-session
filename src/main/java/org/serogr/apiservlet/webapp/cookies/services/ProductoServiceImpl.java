@@ -27,7 +27,7 @@ public class ProductoServiceImpl implements ProductoServiceI{
                 return false;
             }
             return producto.getNombre().contains(nombre);
-        }).findFirst();;
+        }).findFirst();
         return encontrado;
     }
 }

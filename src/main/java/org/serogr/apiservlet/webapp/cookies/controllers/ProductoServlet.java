@@ -10,6 +10,7 @@ import org.serogr.apiservlet.webapp.cookies.services.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +22,12 @@ public class ProductoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProductoServiceI serviceI = new ProductoServiceImpl();
+        //Se obtiene la conección de los atributos del Request
+        //Se tiene que hacer un cast a tipo Connection
+        //En este caso es el nombre "conn" porque con ese nombre lo guardamos en el filtro de la conección
+        Connection conn = (Connection) req.getAttribute("conn");
+
+        ProductoServiceI serviceI = new ProductoServiceJDBCImpl(conn);
         List<Producto> productos = serviceI.listar();
 
         LoginService auth = new LoginServiceSessionImpl();
