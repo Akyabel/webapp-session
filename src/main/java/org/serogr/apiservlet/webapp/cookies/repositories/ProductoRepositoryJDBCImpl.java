@@ -1,5 +1,6 @@
 package org.serogr.apiservlet.webapp.cookies.repositories;
 
+import org.serogr.apiservlet.webapp.cookies.models.Categoria;
 import org.serogr.apiservlet.webapp.cookies.models.Producto;
 
 import java.sql.*;
@@ -50,12 +51,36 @@ public class ProductoRepositoryJDBCImpl implements Repository<Producto> {
 
     @Override
     public void guardar(Producto producto) throws SQLException {
+        String sql;
+        if (producto.getId() != null && producto.getId() > 0){
+            sql = "UPDATE productos SET nombre=?,  precio=?, sku=?, categoria_id=? where id=?";
 
+        } else {
+            sql = "INSERT INTO productos (nombre, precio, sku, categoria_id, fecha_registro) VALUES (?,?,?,?,?)";
+        }
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setString(1, producto.getNombre());
+            stmt.setInt(2, producto.getPrecio());
+            stmt.setString(3, producto.getSku());
+            stmt.setLong(4, producto.getCategoria().getId());
+            if (producto.getId() != null && producto.getId() > 0){
+                stmt.setLong(5, producto.getId());
+            } else {
+                stmt.setDate(5, Date.valueOf(producto.getFechaRegistro()));
+            }
+
+            stmt.executeUpdate();
+        }
     }
 
     @Override
     public void eliminar(Long id) throws SQLException {
-
+        String sql = "DELETE FROM productos WHERE id=?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setLong(1, id);
+            stmt.executeUpdate();
+        }
     }
 
     private Producto getProducto(ResultSet rs) throws SQLException {
@@ -63,7 +88,12 @@ public class ProductoRepositoryJDBCImpl implements Repository<Producto> {
         producto.setId(rs.getLong("id"));
         producto.setNombre(rs.getString("nombre"));
         producto.setPrecio(rs.getInt("precio"));
-        producto.setTipo(rs.getString("categoria"));
+        producto.setSku("sku");
+        producto.setFechaRegistro(rs.getDate("fecha_registro").toLocalDate());
+        Categoria categoria = new Categoria();
+        categoria.setId(rs.getLong("categoria_id"));
+        categoria.setNombre(rs.getString("categoria"));
+        producto.setCategoria(categoria);
         return producto;
     }
 }
