@@ -1,5 +1,6 @@
 package org.serogr.apiservlet.webapp.cookies.services;
 
+import org.serogr.apiservlet.webapp.cookies.models.Categoria;
 import org.serogr.apiservlet.webapp.cookies.models.Producto;
 
 import java.util.Arrays;
@@ -29,5 +30,25 @@ public class ProductoServiceImpl implements ProductoServiceI{
             return producto.getNombre().contains(nombre);
         }).findFirst();
         return encontrado;
+    }
+
+    @Override
+    public void guardar(Producto producto) {
+
+    }
+
+    @Override
+    public void eliminar(Long id) {
+
+    }
+
+    @Override
+    public List<Categoria> listarCategoria() {
+        return List.of();
+    }
+
+    @Override
+    public Optional<Categoria> findByIdCategoria(Long id) {
+        return Optional.empty();
     }
 }
